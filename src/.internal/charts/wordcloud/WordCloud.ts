@@ -510,7 +510,7 @@ export class WordCloud extends Series {
 								if (label.get("x") != -999999) {
 									label.animate({ key: "x", to: p.x, duration: this.get("animationDuration", 0), easing: this.get("animationEasing") })
 									label.animate({ key: "y", to: p.y, duration: this.get("animationDuration", 0), easing: this.get("animationEasing") })
-									label.animate({ key: "rotation", to: angle, duration: this.get("animationDuration", 0), easing: this.get("animationEasing") })
+									label.animate({ key: "rotation", to: angle as any, duration: this.get("animationDuration", 0), easing: this.get("animationEasing") })
 									label.animate({ key: "fontSize", to: fontSize, duration: this.get("animationDuration", 0), easing: this.get("animationEasing") })
 								}
 								else {

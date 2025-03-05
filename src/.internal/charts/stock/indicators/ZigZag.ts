@@ -154,7 +154,7 @@ export class ZigZag extends Indicator {
 									let b = Math.max(0, i - depth);
 									let skip = false;
 									for (let k = i; k > b; k--) {
-										if (high < dataItems[k].get("highValueY")) {
+										if (high < dataItems[k].get("highValueY", high)) {
 											skip = true;
 											break;
 										}
@@ -176,7 +176,7 @@ export class ZigZag extends Indicator {
 									let b = Math.max(0, i - depth);
 									let skip = false;
 									for (let k = i; k > b; k--) {
-										if (low > dataItems[k].get("lowValueY")) {
+										if (low > dataItems[k].get("lowValueY", low)) {
 											skip = true;
 											break;
 										}
@@ -197,7 +197,9 @@ export class ZigZag extends Indicator {
 						let lastHigh = lastDataItem.get("highValueY", lastValue);
 						let lastLow = lastDataItem.get("lowValueY", lastValue);
 
-						if (zigZagValue < lastHigh) {
+						const currentZigZag = zigZagValue ?? 0;
+						const currentLastHigh = lastHigh ?? lastValue ?? 0;
+						if (currentZigZag < currentLastHigh) {
 							data.push({ time: lastTime, zigzag: lastLow });
 						}
 						else {

@@ -798,9 +798,11 @@ export class StockChart extends Container {
 		if (!series.states.lookup("comparingDefaults")) {
 			const seriesSettings = this.get("percentScaleSeriesSettings");
 			const defaults: any = {};
-			$object.each(seriesSettings, (key, _val) => {
-				defaults[key] = (<any>series).get(key);
-			});
+			if (seriesSettings) {
+				$object.each(seriesSettings, (key, _val) => {
+					defaults[key] = (<any>series).get(key);
+				});
+			}
 			series.states.create("comparingDefaults", defaults);
 		}
 	}
@@ -816,9 +818,11 @@ export class StockChart extends Container {
 		if (!axis.states.lookup("comparingDefaults")) {
 			const axisSettings = this.get("percentScaleValueAxisSettings");
 			const defaults: any = {};
-			$object.each(axisSettings, (key, _val) => {
-				defaults[key] = (<any>axis).get(key);
-			});
+			if (axisSettings) {
+				$object.each(axisSettings, (key, _val) => {
+					defaults[key] = (<any>axis).get(key);
+				});
+			}
 			axis.states.create("comparingDefaults", defaults);
 		}
 	}

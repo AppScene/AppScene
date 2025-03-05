@@ -105,7 +105,10 @@ export class PolylineSeries extends DrawingSeries {
 								this._addPoint(event, true);
 							}
 							else if (this._pIndex > 1) {
-								this.data.moveValue(this.data.getIndex(this.data.length - 1), this.data.length - 2);
+								const value = this.data.getIndex(this.data.length - 1);
+								if (value !== undefined) {
+									this.data.moveValue(value, this.data.length - 2);
+								}
 							}
 						}
 

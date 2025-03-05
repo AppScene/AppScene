@@ -225,10 +225,14 @@ export abstract class LinkedHierarchy extends Hierarchy {
 	protected _processDataItem(dataItem: DataItem<this["_dataItemSettings"]>) {
 		super._processDataItem(dataItem);
 
-		const parentDataItem = dataItem.get("parent");
-		if (parentDataItem?.get("depth") !== undefined && parentDataItem.get("depth") >= this.get("topDepth")) {
-			const link = this.linkDataItems(parentDataItem, dataItem);
-			dataItem.setRaw("parentLink", link);
+		const parentDataItem = dataItem.get("parent") as DataItem<this["_dataItemSettings"]> | undefined;
+		if (parentDataItem !== undefined) {
+			const depth = parentDataItem.get("depth");
+			const topDepth = this.get("topDepth");
+			if (depth !== undefined && topDepth !== undefined && depth >= topDepth) {
+				const link = this.linkDataItems(parentDataItem, dataItem);
+				dataItem.setRaw("parentLink", link);
+			}
 		}
 
 		const node = dataItem.get("node");

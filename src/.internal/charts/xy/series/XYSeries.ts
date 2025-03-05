@@ -1050,10 +1050,10 @@ export abstract class XYSeries extends Series {
 
 		if (this.valueXFields) {
 			$array.each(this.valueXFields as Array<keyof this["_settings"]>, (key) => {
-				const field = this.get(<any>(key + "Field"));
+				const field = this.get(<any>`${String(key)}Field`);
 				if (field) {
 					this._valueXFields.push(<any>key);
-					let field = this.get(<any>(key + "Show"));
+					let field = this.get(<any>`${String(key)}Show`);
 					this.__valueXShowFields.push(field);
 
 					if (field.indexOf("Working") != -1) {
@@ -1068,11 +1068,11 @@ export abstract class XYSeries extends Series {
 
 		if (this.valueYFields) {
 			$array.each(this.valueYFields as Array<keyof this["_settings"]>, (key) => {
-				const field = this.get(<any>(key + "Field"));
+				const field = this.get(<any>`${String(key)}Field`);
 
 				if (field) {
 					this._valueYFields.push(<any>key);
-					let field = this.get(<any>(key + "Show"));
+					let field = this.get(<any>`${String(key)}Show`);
 					this.__valueYShowFields.push(field);
 
 					if (field.indexOf("Working") != -1) {

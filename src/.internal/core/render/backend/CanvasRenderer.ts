@@ -2805,7 +2805,7 @@ export class CanvasRadialText extends CanvasText implements IRadialText {
 				else if (chunk.type == "value") {
 
 					// Measure each letter
-					let chars = chunk.text.match(/./ug) || [];
+					let chars: string[] = chunk.text.match(/./ug) || [];
 					if (rtl) {
 						chars = $utils.splitString(chunk.text);
 						chars.reverse();

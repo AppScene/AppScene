@@ -505,7 +505,7 @@ export abstract class BaseColumnSeries extends XYSeries {
 
 			this._updateSeriesGraphics(dataItem, graphics!, l, r, t, b, fitW, fitH);
 
-			if ((l < xStart && r < xStart) || (l > xEnd && r > xEnd) || (t < yStart && b <= yStart) || (t >= yEnd && b > yEnd) || $type.isNaN(l) || $type.isNaN(t)) {
+			if ((l < (xStart ?? 0) && r < (xStart ?? 0)) || (l > (xEnd ?? 1) && r > (xEnd ?? 1)) || (t < (yStart ?? 0) && b <= (yStart ?? 0)) || (t >= (yEnd ?? 1) && b > (yEnd ?? 1)) || $type.isNaN(l) || $type.isNaN(t)) {
 				this._toggleColumn(dataItem, false);
 			}
 			else {
