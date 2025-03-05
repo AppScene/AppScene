@@ -196,10 +196,11 @@ export class DurationFormatter extends Entity {
 
 		// format and replace the number
 		let details;
-		if (source > this.get("negativeBase")) {
+		let negativeBase = this.get("negativeBase") ?? 0;
+		if (source > negativeBase) {
 			details = info.positive;
 		}
-		else if (source < this.get("negativeBase")) {
+		else if (source < negativeBase) {
 			details = info.negative;
 		}
 		else {
@@ -385,7 +386,7 @@ export class DurationFormatter extends Entity {
 	protected applyFormat(value: number, details: any): string {
 
 		// Use absolute values
-		let negative = !details.absolute && (value < this.get("negativeBase"));
+		let negative = !details.absolute && (value < (this.get("negativeBase") ?? 0));
 		value = Math.abs(value);
 
 

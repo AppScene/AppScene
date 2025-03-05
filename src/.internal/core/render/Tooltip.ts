@@ -566,7 +566,7 @@ export class Tooltip extends Container {
 
 			const animationDuration = this.get("animationDuration", 0);
 
-			if (animationDuration > 0 && this.get("visible") && this.get("opacity") > 0.1) {
+			if (animationDuration > 0 && this.get("visible") && (this.get("opacity") ?? 0) > 0.1) {
 				const animationEasing = this.get("animationEasing");
 				this.animate({ key: "x", to: x, duration: animationDuration, easing: animationEasing });
 				this.animate({ key: "y", to: y, duration: animationDuration, easing: animationEasing });

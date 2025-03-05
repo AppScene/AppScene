@@ -193,10 +193,11 @@ export class NumberFormatter extends Entity {
 
 			// format and replace the number
 			let details;
-			if (source > this.get("negativeBase")) {
+			let negativeBase = this.get("negativeBase") ?? 0;
+			if (source > negativeBase) {
 				details = info.positive;
 			}
-			else if (source < this.get("negativeBase")) {
+			else if (source < negativeBase) {
 				details = info.negative;
 			}
 			else {

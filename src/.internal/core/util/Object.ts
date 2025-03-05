@@ -1,7 +1,7 @@
 import * as $array from "./Array";
 import type { Keyof } from "./Type";
 
-export function keys<O>(object: O): Array<Keyof<O>> {
+export function keys<O extends object>(object: O): Array<Keyof<O>> {
 	return Object.keys(object) as Array<Keyof<O>>;
 }
 
@@ -13,7 +13,7 @@ export function keys<O>(object: O): Array<Keyof<O>> {
  * @param order   Ordering function
  * @returns Object property names
  */
-export function keysOrdered<Object>(object: Object, order: (a: Keyof<Object>, b: Keyof<Object>) => number): Array<Keyof<Object>> {
+export function keysOrdered<T extends object>(object: T, order: (a: Keyof<T>, b: Keyof<T>) => number): Array<Keyof<T>> {
 	return keys(object).sort(order);
 }
 
@@ -21,7 +21,7 @@ export function copy<O>(object: O): O {
 	return Object.assign({}, object);
 }
 
-export function each<O>(object: O, f: <K extends keyof O>(key: K, value: Exclude<O[K], undefined>) => void): void {
+export function each<O extends object>(object: O, f: <K extends keyof O>(key: K, value: Exclude<O[K], undefined>) => void): void {
 	keys(object).forEach((key) => {
 		f(key, object[key] as any);
 	});
@@ -54,7 +54,7 @@ export function eachContinue<Object>(object: Object, fn: <Key extends Keyof<Obje
  * @param fn      Callback function
  * @param order   Ordering function
  */
-export function eachOrdered<Object>(object: Object, fn: <Key extends Keyof<Object>>(key: Key, value: Object[Key]) => void, ord: (a: Keyof<Object>, b: Keyof<Object>) => number): void {
+export function eachOrdered<T extends object>(object: T, fn: <Key extends Keyof<T>>(key: Key, value: T[Key]) => void, ord: (a: Keyof<T>, b: Keyof<T>) => number): void {
 	$array.each(keysOrdered(object, ord), (key) => {
 		fn(key, object[key]);
 	});

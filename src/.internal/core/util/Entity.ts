@@ -437,7 +437,7 @@ export abstract class Settings implements IDisposer, IAnimation, IStartAnimation
 
 					const diff = animation.percentage;
 
-					if (diff >= 1) {
+					if (Number(diff) >= 1) {
 						if (animation._checkEnded()) {
 							this.set(key, animation._value(1));
 
@@ -466,7 +466,7 @@ export abstract class Settings implements IDisposer, IAnimation, IStartAnimation
 
 					const diff = animation.percentage;
 
-					if (diff >= 1) {
+					if (Number(diff) >= 1) {
 						if (animation._checkEnded()) {
 							this.setPrivate(key, animation._value(1));
 

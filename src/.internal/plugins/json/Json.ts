@@ -89,7 +89,7 @@ function parseRef<E extends Entity>(value: string, refs: Array<IRef>): IParsed<E
 				const subpath = path[i];
 
 				// Supports `#foo.get("bar")` and `#foo.get('bar')` syntax
-				const parsed = /get\((["'])([^\1]*)\1\)/.exec(subpath);
+				const parsed = /get\((["'])([^"']*)\1\)/.exec(subpath);
 
 				if (parsed) {
 					object = object.get(parsed[2]);
@@ -220,7 +220,7 @@ class ParserState {
 
 	async parseAsyncRefs(refs: Array<object> | object): Promise<void> {
 		if ($type.isArray(refs)) {
-			await Promise.all($array.map(refs, (x) => this.parseAsyncRefs(x)));
+			await Promise.all($array.map(refs, (x) => this.parseAsyncRefs(x as object)));
 
 		} else {
 			await this.parseAsyncObject(refs);

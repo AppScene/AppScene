@@ -175,7 +175,12 @@ export class RadarColumnSeries extends BaseColumnSeries {
 
 	protected _shouldInclude(position: number): boolean {
 		const xAxis = this.get("xAxis");
-		if (position < xAxis.get("start") || position > xAxis.get("end")) {
+		if (!xAxis) {
+			return false;
+		}
+		const start = xAxis.get("start");
+		const end = xAxis.get("end");
+		if (start == null || end == null || position < start || position > end) {
 			return false;
 		}
 		return true;
@@ -183,7 +188,12 @@ export class RadarColumnSeries extends BaseColumnSeries {
 
 	protected _shouldShowBullet(positionX: number, _positionY: number): boolean {
 		const xAxis = this.get("xAxis");
-		if (positionX < xAxis.get("start") || positionX > xAxis.get("end")) {
+		if (!xAxis) {
+			return false;
+		}
+		const start = xAxis.get("start");
+		const end = xAxis.get("end");
+		if (start == null || end == null || positionX < start || positionX > end) {
 			return false;
 		}
 		return this._showBullets;

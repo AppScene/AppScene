@@ -56,7 +56,7 @@ export function range(diff: Time, from: number, to: number): number {
  * @ignore
  */
 export function defaultInterpolate<A, B>(diff: Time, from: A, to: B): A | B {
-	if (diff >= 1) {
+	if (Number(diff) >= 1) {
 		return to;
 
 	} else {
@@ -174,7 +174,7 @@ export class AnimationTime implements IAnimation {
 			else {
 				const diff = (currentTime - this._startingTime) / this._playingDuration;
 
-				if (diff >= 1) {
+				if (Number(diff) >= 1) {
 					this._playingDuration = null;
 					this._startingTime = null;
 					this._from = this._to;

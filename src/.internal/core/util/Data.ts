@@ -21,7 +21,7 @@ export interface IDataWithProcessor {
  * 
  * @see {@link https://www.amcharts.com/docs/v5/concepts/data/} for more info
  */
-export class ListData<T> extends List<T> implements ICounterRef, IDataWithProcessor {
+export class ListData<T extends { [index: string]: any }> extends List<T> implements ICounterRef, IDataWithProcessor {
 
 	/**
 	 * @ignore

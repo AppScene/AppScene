@@ -115,7 +115,7 @@ export class Slice extends Graphics {
 			y = this.iy * (innerRadius + (radius - innerRadius) * tooltipY.value)
 		}
 
-		if (this.get("arc") >= 360 && innerRadius == 0) {
+		if ((this.get("arc") || 0) >= 360 && innerRadius == 0) {
 			x = 0;
 			y = 0;
 		}

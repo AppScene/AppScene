@@ -97,8 +97,8 @@ export class PyramidSeries extends FunnelSeries {
 
 		let pyramidHeight = slicesContainer.innerHeight();
 		let pyramidWidth = slicesContainer.innerWidth();
-		let linkWidth = link.width();
-		let linkHeight = link.height();
+		let linkWidth = link ? link.width() : 0;
+		let linkHeight = link ? link.height() : 0;
 
 		if (orientation == "horizontal") {
 			[pyramidWidth, pyramidHeight] = [pyramidHeight, pyramidWidth];
@@ -164,25 +164,39 @@ export class PyramidSeries extends FunnelSeries {
 		let linkY = sliceY + sliceHeight;
 
 		if (orientation == "vertical") {
-			label.set("y", labelCoord);
-			if (label.get("opacity") > 0) {
-				this._rLabels.push({ label: label, y: labelCoord });
+			if (label) {
+				label.set("y", labelCoord);
+				const opacity = label.get("opacity");
+				if (opacity !== undefined && opacity > 0) {
+					this._rLabels.push({ label: label, y: labelCoord });
+				}
 			}
-			slice.set("height", sliceHeight);
+			if (slice) {
+				slice.set("height", sliceHeight);
+			}
 		}
 		else {
-			label.set("x", labelCoord);
-			if (label.get("opacity") > 0) {
-				this._hLabels.push({ label: label, y: labelCoord });
+			if (label) {
+				label.set("x", labelCoord);
+				const opacity = label.get("opacity");
+				if (opacity !== undefined && opacity > 0) {
+					this._hLabels.push({ label: label, y: labelCoord });
+				}
 			}
 			[sliceX, sliceY] = [sliceY, sliceX];
 			[linkX, linkY] = [linkY, linkX];
 
-			slice.set("width", sliceHeight);
+			if (slice) {
+				slice.set("width", sliceHeight);
+			}
 		}
 
-		slice.setAll({ orientation, bottomWidth: sliceBottomWidth, topWidth: sliceTopWidth, x: sliceX, y: sliceY });
-		link.setAll({ orientation, x: linkX, y: linkY, topWidth: sliceBottomWidth, bottomWidth: sliceBottomWidth });
+		if (slice) {
+			slice.setAll({ orientation, bottomWidth: sliceBottomWidth, topWidth: sliceTopWidth, x: sliceX, y: sliceY });
+		}
+		if (link) {
+			link.setAll({ orientation, x: linkX, y: linkY, topWidth: sliceBottomWidth, bottomWidth: sliceBottomWidth });
+		}
 
 		this._nextSize = sliceBottomWidth;
 		this._nextCoord += sliceHeight + linkHeight;

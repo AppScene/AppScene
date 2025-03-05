@@ -85,7 +85,12 @@ export class RadarLineSeries extends LineSeries {
 
 	protected _shouldInclude(position: number): boolean {
 		const xAxis = this.get("xAxis");
-		if (position < xAxis.get("start") || position > xAxis.get("end")) {
+		if (!xAxis) {
+			return false;
+		}
+		const start = xAxis.get("start") ?? 0;
+		const end = xAxis.get("end") ?? 1;
+		if (position < start || position > end) {
 			return false;
 		}
 		return true;
@@ -93,7 +98,12 @@ export class RadarLineSeries extends LineSeries {
 
 	protected _shouldShowBullet(positionX: number, _positionY: number): boolean {
 		const xAxis = this.get("xAxis");
-		if (positionX < xAxis.get("start") || positionX > xAxis.get("end")) {
+		if (!xAxis) {
+			return false;
+		}
+		const start = xAxis.get("start") ?? 0;
+		const end = xAxis.get("end") ?? 1;
+		if (positionX < start || positionX > end) {
 			return false;
 		}
 		return this._showBullets;

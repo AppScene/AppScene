@@ -136,7 +136,7 @@ export abstract class Component extends Container {
 	declare public _dataItemSettings: IComponentDataItem;
 	declare public _events: IComponentEvents;
 
-	protected _data: ListData<unknown> = new ListData();
+	protected _data: ListData<{ [index: string]: any }> = new ListData();
 
 	protected _dataItems: Array<DataItem<this["_dataItemSettings"]>> = [];
 
@@ -167,7 +167,7 @@ export abstract class Component extends Container {
 	 *
 	 * @see {@link https://www.amcharts.com/docs/v5/concepts/data/} for more info
 	 */
-	public set data(data: ListData<unknown>) {
+	public set data(data: ListData<{ [index: string]: any }>) {
 		data.incrementRef();
 		this._data.decrementRef();
 		this._data = data;
@@ -176,7 +176,7 @@ export abstract class Component extends Container {
 	/**
 	 * @return  Data
 	 */
-	public get data(): ListData<unknown> {
+	public get data(): ListData<{ [index: string]: any }> {
 		return this._data;
 	}
 
@@ -259,10 +259,10 @@ export abstract class Component extends Container {
 			this._valueFieldsF = {};
 
 			$array.each(this.valueFields as Array<keyof this["_settings"]>, (key) => {
-				const field = this.get(<any>(key + "Field"));
+				const field = this.get(<any>(String(key) + "Field"));
 				if (field) {
 					this._valueFields.push(<any>key);
-					this._valueFieldsF[key as string] = { fieldKey: key + "Field", workingKey: key + "Working" };
+					this._valueFieldsF[key as string] = { fieldKey: String(key) + "Field", workingKey: String(key) + "Working" };
 				}
 			});
 		}
@@ -272,10 +272,10 @@ export abstract class Component extends Container {
 			this._fieldsF = {};
 
 			$array.each(this.fields as Array<keyof this["_settings"]>, (key) => {
-				const field = this.get(<any>(key + "Field"));
+				const field = this.get(<any>(String(key) + "Field"));
 				if (field) {
 					this._fields.push(<any>key);
-					this._fieldsF[key as string] = key + "Field";
+					this._fieldsF[key as string] = String(key) + "Field";
 				}
 			});
 		}
@@ -298,15 +298,15 @@ export abstract class Component extends Container {
 		const output: any = {}; // temporary to solve error
 		if (this._valueFields) {
 			$array.each(this._valueFields, (key) => {
-				const field = this.get(<any>(this._valueFieldsF[key].fieldKey));
+				const field = this.get(<any>(String(key) + "Field"));
 				output[key] = (data as any)[field];
 
-				output[this._valueFieldsF[key].workingKey] = output[key];
+				output[this._valueFieldsF[key as string].workingKey] = output[key];
 			});
 		}
 		if (this._fields) {
 			$array.each(this._fields, (key) => {
-				const field = this.get(<any>(this._fieldsF[key]));
+				const field = this.get(<any>(String(key) + "Field"));
 				output[key] = (data as any)[field];
 			});
 		}

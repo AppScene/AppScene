@@ -206,7 +206,7 @@ export class ForceDirected extends LinkedHierarchy {
 		super._prepareChildren();
 		if (this.isDirty("showOnFrame")) {
 			const showOnFrame = this.get("showOnFrame");
-			if (showOnFrame > this._tick) {
+			if (showOnFrame !== undefined && showOnFrame > this._tick) {
 				this.nodesContainer.setPrivate("visible", false);
 				this.linksContainer.setPrivate("visible", false);
 			}

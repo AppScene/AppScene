@@ -414,7 +414,7 @@ export class Legend extends Series {
 
 		container.events.on("pointerout", () => {
 			const component = item.component;
-			if (component && component.hoverDataItem) {
+			if (component && typeof component.hoverDataItem === "function") {
 				component.unhoverDataItem(item as any)
 			}
 		})

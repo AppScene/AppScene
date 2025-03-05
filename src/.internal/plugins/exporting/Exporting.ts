@@ -1919,11 +1919,13 @@ export class Exporting extends Entity {
 			dataFields = {};
 			if ($type.isArray(data) && data.length) {
 				$array.each(data, (row) => {
-					$object.each(row, (key, _value) => {
-						if (dataFields![key] == null) {
-							dataFields![key] = key;
-						}
-					});
+					if ($type.isObject(row)) {
+						$object.each(row, (key, _value) => {
+							if (dataFields![key] == null) {
+								dataFields![key] = key;
+							}
+						});
+					}
 				});
 			}
 		}
